@@ -9,9 +9,9 @@
 import Foundation
 
 struct city {
-    let cityName : String
-    let lat : String
-    let long : String
+    var cityName : String
+    var lat : String
+    var long : String
     
     init(city : String , lat:String , long: String) {
         self.cityName = city

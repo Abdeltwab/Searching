@@ -12,16 +12,13 @@ class FixedTabelViewController: UIViewController {
 
     let cellID: String = "CityCellIdentifier"
     
-  //  fileprivate let Cities: [City]
 
-    var filterdCities = [City]()
-    var Cities = [City]()
+    var filterdCities = [city]()
+    var Cities = [city]()
 
 
     var searching  = false
     
-    //fileprivate let FilterdCities =  [City] ()
-//    var searching = false
 
     
     lazy var tableVew: UITableView = {
@@ -29,15 +26,7 @@ class FixedTabelViewController: UIViewController {
         return tableVew
     }()
     
-//
-//    init(citites : [City] , filteredCities : [City]?) {
-//        self.Cities = citites
-//
-//        super.init(nibName: nil, bundle: nil)
-//
-//
-//
-//    }
+
 
     override func viewDidLoad() {
         NotificationCenter.default.addObserver(self, selector: #selector(self.refresh), name: NSNotification.Name(rawValue: "relaodTableView"), object: nil)
@@ -49,7 +38,7 @@ class FixedTabelViewController: UIViewController {
         
     }
     
-    init(cities: [City]) {
+    init(cities: [city]) {
         if (self.searching) {
             self.filterdCities = cities
         }else {
@@ -87,7 +76,7 @@ extension FixedTabelViewController : UITableViewDataSource  , UITableViewDelegat
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! CityTableViewCell
-        cell.NameLabel.text =  Cities[indexPath.row].CityName
+        cell.NameLabel.text =  Cities[indexPath.row].cityName
         return cell
         
 //        let cell = tableView.dequeueReusableCell(withIdentifier: cellID) as? CityTableViewCell

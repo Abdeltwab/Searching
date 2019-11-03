@@ -9,10 +9,10 @@
 import Foundation
 
 struct  Country {
-    let Countyname :String
-    let Cities : [City]
-    let Dic : [String : [City]]
-    init(CoutryName :String , cities : [City]) {
+    var Countyname :String
+    var Cities : [city]
+    var Dic : [String : [city]]
+    init(CoutryName :String , cities : [city]) {
         self.Cities = cities
         self.Countyname = CoutryName
         self.Dic = [self.Countyname : self.Cities]

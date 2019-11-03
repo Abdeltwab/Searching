@@ -10,11 +10,18 @@ import UIKit
 import Parchment
 
 struct CountryItem: PagingItem, Hashable, Comparable {
-    let index: Int
-    let title: String
+    var index: Int
+    var title: String
     //let headerImage: UIImage
-    var cities: [City]
+   // var cities: [City]
+    var cities : [city]
     
+    
+    init(indx: Int , ctitle :String , citiesList : [city]) {
+        self.cities = citiesList
+        self.title = ctitle
+        self.index = indx
+    }
     var hashValue: Int {
         return index.hashValue &+ title.hashValue
     }

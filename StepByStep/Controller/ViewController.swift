@@ -64,26 +64,17 @@ class ViewController: UIViewController  {
     //fill data ssource
     private func fillDataSource (CountriesList : [Country]) -> [CountryItem]{
         var countryName :String = " "
-        var newCity : city?
         var cities : [city] = []
-        var CountryItem : CountryItem?
         var CountryITems : [CountryItem] = []
         var  i: Int = 0
         for C in CountriesList {
             for item in C.Dic {
                 countryName = item.key   // print ( item.key )
                 for i in item.value {
-//                    newCity?.cityName = i.cityName
-//                    newCity?.lat = i.lat
-//                    newCity?.long = i.long
-//                    city(city: <#T##String#>, lat: <#T##String#>, long: <#T##String#>)
                     cities.append(city(city: i.cityName, lat: i.lat, long: i.long))
                 }
-                CountryItem?.index = i
-                CountryItem?.title = countryName
-                CountryItem?.cities = cities
-                
-             //   CountryITems.append()
+                CountryITems.append(CountryItem(indx: i, countyName: countryName, citiesList: cities))
+                cities.removeAll()
                 i = i + 1
             }
             
@@ -99,11 +90,10 @@ class ViewController: UIViewController  {
 
     
     func confgireSearchController()  {
-        searchBar.delegate = self
-
+         searchBar.delegate = self
          searchBar.sizeToFit()
          searchBar.placeholder = "search here"
-        self.navigationController?.navigationBar.topItem?.titleView = searchBar
+         self.navigationController?.navigationBar.topItem?.titleView = searchBar
     }
     
     private let pagingViewController = CustomPagingViewController()
@@ -113,13 +103,13 @@ class ViewController: UIViewController  {
     override func viewDidLoad() {
         super.viewDidLoad()
         //data source
-        
          CountriesList = JSsonParser.Paring()!   // the data source
          CountriesItems =  fillDataSource (CountriesList: CountriesList)
         
        
         
-        confgireSearchController()
+        
+         confgireSearchController()
     
         
         pagingViewController.menuItemSource = .class(type: CountryPagingCell.self)
@@ -143,7 +133,7 @@ class ViewController: UIViewController  {
         )
         
         // Add the paging view controller as a child view controller and
-        // contrain it to all edges.
+        // constraint  it to all edges.
         addChild(pagingViewController)
        view.addSubview(pagingViewController.view)
         view.constrainToEdges(pagingViewController.view)

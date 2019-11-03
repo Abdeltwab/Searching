@@ -17,9 +17,9 @@ struct CountryItem: PagingItem, Hashable, Comparable {
     var cities : [city]
     
     
-    init(indx: Int , ctitle :String , citiesList : [city]) {
+    init(indx: Int , countyName :String , citiesList : [city]) {
         self.cities = citiesList
-        self.title = ctitle
+        self.title = countyName
         self.index = indx
     }
     var hashValue: Int {

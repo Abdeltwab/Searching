@@ -64,7 +64,13 @@ class FixedTabelViewController: UIViewController {
 extension FixedTabelViewController : UITableViewDataSource  , UITableViewDelegate{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
      
-        return Cities.count
+        
+        if ( Cities.count  > 10  ){
+            return ( (Cities.count) % (Cities.count-10) )
+        }else {
+            return Cities.count
+
+        }
 
 //        if searching {
 //            return Cities.count

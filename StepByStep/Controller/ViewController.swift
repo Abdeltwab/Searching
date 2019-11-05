@@ -55,10 +55,10 @@ class ViewController: UIViewController  {
 
     var CountriesList  : [Country] = []
     var CountriesItems : [CountryItem] = []
-    
+     var filterdCities = [city]()
+    var currentCoutryIndex = 0     // dummy solution for the filterating feature
 
    // var filterdCities = [[City]]()
-   // var filterdCities = [City]()
 
     
     //fill data ssource
@@ -154,17 +154,16 @@ extension ViewController: PagingViewControllerDataSource {
     
     func pagingViewController<T>(_ pagingViewController: PagingViewController<T>, viewControllerForIndex index: Int) -> UIViewController {
         let viewController : UIViewController
-//        if (ViewController.seraching) {
-//          //  Countries[index].cities = filterdCities[index]
-//           CountriesItems[index].cities = filterdCities
-//
-//        }else {
-//           // Countries[index].cities = Cities[index]
-//            CountriesItems[index].cities = Cities
-//
-//        }
-        viewController = FixedTabelViewController(cities: CountriesItems[index].cities)
+        if (ViewController.seraching) {
+          //  Countries[index].cities = filterdCities[index]
+            CountriesItems[index].cities = filterdCities
+            viewController = FixedTabelViewController(cities: CountriesItems[index].cities)
 
+        }else {
+            viewController = FixedTabelViewController(cities: CountriesItems[index].cities)
+
+        }
+        currentCoutryIndex = index
         return viewController
     }
     
@@ -174,7 +173,7 @@ extension ViewController: PagingViewControllerDataSource {
     }
     
     func numberOfViewControllers<T>(in: PagingViewController<T>) -> Int{
-        return    CountriesItems.count
+        return    ( ( CountriesItems.count) / 20  )
     }
     
 }
@@ -189,9 +188,12 @@ extension ViewController :UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
       
         
-         //filterdCities  = Cities.filter({$0.CityName!.lowercased().prefix(searchText.count) == searchText.lowercased()})
+       // if searchText.isEmpty {
+       print(currentCoutryIndex)
+       filterdCities = CountriesItems[currentCoutryIndex].cities.filter({$0.cityName.lowercased().prefix(searchText.count) == searchText.lowercased()})
 
-  
+    
+        
         
         ViewController.seraching  = true
         pagingViewController.reloadData()
@@ -213,4 +215,7 @@ extension ViewController :UISearchBarDelegate {
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         pagingViewController.reloadData()
     }
+    
+    
+    
 }
